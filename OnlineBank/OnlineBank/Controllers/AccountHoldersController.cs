@@ -29,24 +29,30 @@ namespace OnlineBank.Controllers
             
             if (ModelState.IsValid)
             {
+                
                 AccountHolder ah = db.AccountHolders.SingleOrDefault(a => a.email == accountHolder.email);
-                IQueryable<CardDetail> cd = db.CardDetails.Where(c => c.accountID == ah.accountID);
-                int i = 0;
-                foreach (var item in cd)
-                {
-                    double c[i] = 
-                }
-
+                
                 if (ah == null || PasswordSecurity.GenerateHash(accountHolder.password, ah.salt) != ah.hashPassword)
                 {
                     return RedirectToAction("Login");
                 }
                 else
                 {
+                    IQueryable<CardDetail> cd = db.CardDetails.Where(c => c.accountID == ah.accountID);
+                    
                     Session["accountID"] = ah.accountID;
                     Session["firstName"] = ah.firstName;
                     Session["lastName"] = ah.lastName;
-                    ah.balance = 
+
+                    decimal? balance = 0;
+                    foreach (var item in cd)
+                    {
+                        balance = balance + item.cbalance;
+                    }
+
+                    Session["balance"] = balance;
+                     
+
                     return RedirectToAction("Details/"+ ah.accountID);
                 }
             }

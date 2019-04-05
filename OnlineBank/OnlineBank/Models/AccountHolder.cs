@@ -39,8 +39,8 @@ namespace OnlineBank.Models
         public string firstName { get; set; }
         public string lastName { get; set; }
         public Nullable<decimal> balance { get; set; }
+        
 
-    
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CardDetail> CardDetails { get; set; }
     }
