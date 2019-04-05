@@ -1,0 +1,56 @@
+﻿@model OnlineBank.Models.TransactionData
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>TransactionData</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.datemade)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.datemade)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cashIn)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cashIn)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cashOut)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cashOut)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CardDetail.cardNum)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CardDetail.cardNum)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

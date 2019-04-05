@@ -1,0 +1,219 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ATMModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AccountHolder">
+          <Key>
+            <PropertyRef Name="accountID" />
+          </Key>
+          <Property Name="accountID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="email" Type="varchar(max)" />
+          <Property Name="hashPassword" Type="varchar(max)" />
+          <Property Name="salt" Type="varchar" MaxLength="5" />
+          <Property Name="firstName" Type="char" MaxLength="20" />
+          <Property Name="lastName" Type="char" MaxLength="20" />
+          <Property Name="balance" Type="decimal" Precision="10" Scale="2" />
+        </EntityType>
+        <EntityType Name="CardDetails">
+          <Key>
+            <PropertyRef Name="cardID" />
+          </Key>
+          <Property Name="cardID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cardNum" Type="varchar" MaxLength="16" />
+          <Property Name="cardPin" Type="varchar" MaxLength="4" />
+          <Property Name="cbalance" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="accountID" Type="int" />
+        </EntityType>
+        <EntityType Name="TransactionData">
+          <Key>
+            <PropertyRef Name="transactionID" />
+          </Key>
+          <Property Name="transactionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="datemade" Type="date" />
+          <Property Name="cashIn" Type="decimal" Precision="4" Scale="2" />
+          <Property Name="cashOut" Type="decimal" Precision="3" Scale="2" />
+          <Property Name="cardID" Type="int" />
+        </EntityType>
+        <Association Name="FK__CardDetai__accou__25869641">
+          <End Role="AccountHolder" Type="Self.AccountHolder" Multiplicity="0..1" />
+          <End Role="CardDetails" Type="Self.CardDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AccountHolder">
+              <PropertyRef Name="accountID" />
+            </Principal>
+            <Dependent Role="CardDetails">
+              <PropertyRef Name="accountID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Transacti__cardI__286302EC">
+          <End Role="CardDetails" Type="Self.CardDetails" Multiplicity="0..1" />
+          <End Role="TransactionData" Type="Self.TransactionData" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CardDetails">
+              <PropertyRef Name="cardID" />
+            </Principal>
+            <Dependent Role="TransactionData">
+              <PropertyRef Name="cardID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ATMModelStoreContainer">
+          <EntitySet Name="AccountHolder" EntityType="Self.AccountHolder" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CardDetails" EntityType="Self.CardDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TransactionData" EntityType="Self.TransactionData" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__CardDetai__accou__25869641" Association="Self.FK__CardDetai__accou__25869641">
+            <End Role="AccountHolder" EntitySet="AccountHolder" />
+            <End Role="CardDetails" EntitySet="CardDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Transacti__cardI__286302EC" Association="Self.FK__Transacti__cardI__286302EC">
+            <End Role="CardDetails" EntitySet="CardDetails" />
+            <End Role="TransactionData" EntitySet="TransactionData" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ATMModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AccountHolder">
+          <Key>
+            <PropertyRef Name="accountID" />
+          </Key>
+          <Property Name="accountID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="email" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="hashPassword" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="salt" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="firstName" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+          <Property Name="lastName" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+          <Property Name="balance" Type="Decimal" Precision="10" Scale="2" />
+          <NavigationProperty Name="CardDetails" Relationship="Self.FK__CardDetai__accou__25869641" FromRole="AccountHolder" ToRole="CardDetails" />
+        </EntityType>
+        <EntityType Name="CardDetail">
+          <Key>
+            <PropertyRef Name="cardID" />
+          </Key>
+          <Property Name="cardID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cardNum" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
+          <Property Name="cardPin" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="cbalance" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="accountID" Type="Int32" />
+          <NavigationProperty Name="AccountHolder" Relationship="Self.FK__CardDetai__accou__25869641" FromRole="CardDetails" ToRole="AccountHolder" />
+          <NavigationProperty Name="TransactionDatas" Relationship="Self.FK__Transacti__cardI__286302EC" FromRole="CardDetails" ToRole="TransactionData" />
+        </EntityType>
+        <EntityType Name="TransactionData">
+          <Key>
+            <PropertyRef Name="transactionID" />
+          </Key>
+          <Property Name="transactionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="datemade" Type="DateTime" Precision="0" />
+          <Property Name="cashIn" Type="Decimal" Precision="4" Scale="2" />
+          <Property Name="cashOut" Type="Decimal" Precision="3" Scale="2" />
+          <Property Name="cardID" Type="Int32" />
+          <NavigationProperty Name="CardDetail" Relationship="Self.FK__Transacti__cardI__286302EC" FromRole="TransactionData" ToRole="CardDetails" />
+        </EntityType>
+        <Association Name="FK__CardDetai__accou__25869641">
+          <End Role="AccountHolder" Type="Self.AccountHolder" Multiplicity="0..1" />
+          <End Role="CardDetails" Type="Self.CardDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AccountHolder">
+              <PropertyRef Name="accountID" />
+            </Principal>
+            <Dependent Role="CardDetails">
+              <PropertyRef Name="accountID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Transacti__cardI__286302EC">
+          <End Role="CardDetails" Type="Self.CardDetail" Multiplicity="0..1" />
+          <End Role="TransactionData" Type="Self.TransactionData" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CardDetails">
+              <PropertyRef Name="cardID" />
+            </Principal>
+            <Dependent Role="TransactionData">
+              <PropertyRef Name="cardID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ATMEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AccountHolders" EntityType="Self.AccountHolder" />
+          <EntitySet Name="CardDetails" EntityType="Self.CardDetail" />
+          <EntitySet Name="TransactionDatas" EntityType="Self.TransactionData" />
+          <AssociationSet Name="FK__CardDetai__accou__25869641" Association="Self.FK__CardDetai__accou__25869641">
+            <End Role="AccountHolder" EntitySet="AccountHolders" />
+            <End Role="CardDetails" EntitySet="CardDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Transacti__cardI__286302EC" Association="Self.FK__Transacti__cardI__286302EC">
+            <End Role="CardDetails" EntitySet="CardDetails" />
+            <End Role="TransactionData" EntitySet="TransactionDatas" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ATMModelStoreContainer" CdmEntityContainer="ATMEntities">
+          <EntitySetMapping Name="AccountHolders">
+            <EntityTypeMapping TypeName="ATMModel.AccountHolder">
+              <MappingFragment StoreEntitySet="AccountHolder">
+                <ScalarProperty Name="accountID" ColumnName="accountID" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="hashPassword" ColumnName="hashPassword" />
+                <ScalarProperty Name="salt" ColumnName="salt" />
+                <ScalarProperty Name="firstName" ColumnName="firstName" />
+                <ScalarProperty Name="lastName" ColumnName="lastName" />
+                <ScalarProperty Name="balance" ColumnName="balance" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CardDetails">
+            <EntityTypeMapping TypeName="ATMModel.CardDetail">
+              <MappingFragment StoreEntitySet="CardDetails">
+                <ScalarProperty Name="cardID" ColumnName="cardID" />
+                <ScalarProperty Name="cardNum" ColumnName="cardNum" />
+                <ScalarProperty Name="cardPin" ColumnName="cardPin" />
+                <ScalarProperty Name="cbalance" ColumnName="cbalance" />
+                <ScalarProperty Name="accountID" ColumnName="accountID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TransactionDatas">
+            <EntityTypeMapping TypeName="ATMModel.TransactionData">
+              <MappingFragment StoreEntitySet="TransactionData">
+                <ScalarProperty Name="transactionID" ColumnName="transactionID" />
+                <ScalarProperty Name="datemade" ColumnName="datemade" />
+                <ScalarProperty Name="cashIn" ColumnName="cashIn" />
+                <ScalarProperty Name="cashOut" ColumnName="cashOut" />
+                <ScalarProperty Name="cardID" ColumnName="cardID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

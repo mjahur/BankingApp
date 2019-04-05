@@ -1,0 +1,51 @@
+﻿@model IEnumerable<OnlineBank.Models.TransactionData>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.datemade)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.cashIn)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.cashOut)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CardDetail.cardNum)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.datemade)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.cashIn)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.cashOut)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CardDetail.cardNum)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.transactionID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.transactionID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.transactionID })
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ATMModelStoreContainer" CdmEntityContainer="ATMEntities">
+    <EntitySetMapping Name="AccountHolders">
+      <EntityTypeMapping TypeName="ATMModel.AccountHolder">
+        <MappingFragment StoreEntitySet="AccountHolder">
+          <ScalarProperty Name="accountID" ColumnName="accountID" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="hashPassword" ColumnName="hashPassword" />
+          <ScalarProperty Name="salt" ColumnName="salt" />
+          <ScalarProperty Name="firstName" ColumnName="firstName" />
+          <ScalarProperty Name="lastName" ColumnName="lastName" />
+          <ScalarProperty Name="balance" ColumnName="balance" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CardDetails">
+      <EntityTypeMapping TypeName="ATMModel.CardDetail">
+        <MappingFragment StoreEntitySet="CardDetails">
+          <ScalarProperty Name="cardID" ColumnName="cardID" />
+          <ScalarProperty Name="cardNum" ColumnName="cardNum" />
+          <ScalarProperty Name="cardPin" ColumnName="cardPin" />
+          <ScalarProperty Name="cbalance" ColumnName="cbalance" />
+          <ScalarProperty Name="accountID" ColumnName="accountID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TransactionDatas">
+      <EntityTypeMapping TypeName="ATMModel.TransactionData">
+        <MappingFragment StoreEntitySet="TransactionData">
+          <ScalarProperty Name="transactionID" ColumnName="transactionID" />
+          <ScalarProperty Name="datemade" ColumnName="datemade" />
+          <ScalarProperty Name="cashIn" ColumnName="cashIn" />
+          <ScalarProperty Name="cashOut" ColumnName="cashOut" />
+          <ScalarProperty Name="cardID" ColumnName="cardID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

@@ -1,0 +1,50 @@
+﻿@model OnlineBank.Models.CardDetail
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>CardDetail</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.cardNum)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cardNum)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cardPin)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cardPin)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cbalance)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cbalance)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AccountHolder.email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AccountHolder.email)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.cardID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

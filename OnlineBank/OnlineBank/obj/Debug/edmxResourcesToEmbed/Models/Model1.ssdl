@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ATMModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="AccountHolder">
+    <Key>
+      <PropertyRef Name="accountID" />
+    </Key>
+    <Property Name="accountID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="email" Type="varchar(max)" />
+    <Property Name="hashPassword" Type="varchar(max)" />
+    <Property Name="salt" Type="varchar" MaxLength="5" />
+    <Property Name="firstName" Type="char" MaxLength="20" />
+    <Property Name="lastName" Type="char" MaxLength="20" />
+    <Property Name="balance" Type="decimal" Precision="10" Scale="2" />
+  </EntityType>
+  <EntityType Name="CardDetails">
+    <Key>
+      <PropertyRef Name="cardID" />
+    </Key>
+    <Property Name="cardID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="cardNum" Type="varchar" MaxLength="16" />
+    <Property Name="cardPin" Type="varchar" MaxLength="4" />
+    <Property Name="cbalance" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="accountID" Type="int" />
+  </EntityType>
+  <EntityType Name="TransactionData">
+    <Key>
+      <PropertyRef Name="transactionID" />
+    </Key>
+    <Property Name="transactionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="datemade" Type="date" />
+    <Property Name="cashIn" Type="decimal" Precision="4" Scale="2" />
+    <Property Name="cashOut" Type="decimal" Precision="3" Scale="2" />
+    <Property Name="cardID" Type="int" />
+  </EntityType>
+  <Association Name="FK__CardDetai__accou__25869641">
+    <End Role="AccountHolder" Type="Self.AccountHolder" Multiplicity="0..1" />
+    <End Role="CardDetails" Type="Self.CardDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AccountHolder">
+        <PropertyRef Name="accountID" />
+      </Principal>
+      <Dependent Role="CardDetails">
+        <PropertyRef Name="accountID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Transacti__cardI__286302EC">
+    <End Role="CardDetails" Type="Self.CardDetails" Multiplicity="0..1" />
+    <End Role="TransactionData" Type="Self.TransactionData" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CardDetails">
+        <PropertyRef Name="cardID" />
+      </Principal>
+      <Dependent Role="TransactionData">
+        <PropertyRef Name="cardID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ATMModelStoreContainer">
+    <EntitySet Name="AccountHolder" EntityType="Self.AccountHolder" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CardDetails" EntityType="Self.CardDetails" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TransactionData" EntityType="Self.TransactionData" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__CardDetai__accou__25869641" Association="Self.FK__CardDetai__accou__25869641">
+      <End Role="AccountHolder" EntitySet="AccountHolder" />
+      <End Role="CardDetails" EntitySet="CardDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Transacti__cardI__286302EC" Association="Self.FK__Transacti__cardI__286302EC">
+      <End Role="CardDetails" EntitySet="CardDetails" />
+      <End Role="TransactionData" EntitySet="TransactionData" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

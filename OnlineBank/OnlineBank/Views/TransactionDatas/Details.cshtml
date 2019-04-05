@@ -1,0 +1,50 @@
+﻿@model OnlineBank.Models.TransactionData
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>TransactionData</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.datemade)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.datemade)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cashIn)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cashIn)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cashOut)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cashOut)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CardDetail.cardNum)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CardDetail.cardNum)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.transactionID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
